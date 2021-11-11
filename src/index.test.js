@@ -3,7 +3,7 @@
 
 const ship = require("./gamelogic.js");
 
-test("returns ships length", () => {
+/* test("returns ships length", () => {
   const newShip = ship(4);
   expect(newShip.length).toBe(4);
 });
@@ -35,4 +35,14 @@ test("tests if the ship is sunk, should return false", () => {
   newShip.hit(1);
   newShip.hit(3);
   expect(newShip.isSunk()).toBeFalsy();
+}); */
+
+const gameboard = require("./gamelogic.js");
+
+test("places ship on given coordinates", () => {
+  // const newShip = ship(4);
+  const newGame = gameboard("B", 4);
+  // const x = "B";
+  // const y = "4";
+  expect(newGame.placeShip()).toBe("B4");
 });
