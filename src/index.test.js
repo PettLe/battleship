@@ -40,9 +40,25 @@ test("tests if the ship is sunk, should return false", () => {
 const gameboard = require("./gamelogic.js");
 
 test("places ship on given coordinates", () => {
-  // const newShip = ship(4);
-  const newGame = gameboard("B", 4);
-  // const x = "B";
-  // const y = "4";
-  expect(newGame.placeShip()).toBe("B4");
+  const newGame = gameboard();
+  expect(newGame.placeShip("B", 4)).toEqual(["B4", "B5", "B6", "B7"]);
+});
+
+/* test("testes if shot is received and recorded", () => {
+  const newGame = gameboard();
+  newGame.receiveAttack("B", 6);
+  expect(newGame.receiveAttack("A", 5)).toEqual(["B6", "A5"]);
+}); */
+
+test("determines if a shit have been hit (missed this time)", () => {
+  const newGame = gameboard();
+  newGame.placeShip("B", 4);
+  console.log(newGame.boardOccupied);
+  expect(newGame.receiveAttack("A", 5)).toEqual("missed!");
+});
+
+test("determines if a shit have been hit (this time it does!)", () => {
+  const newGame = gameboard();
+  newGame.placeShip("B", 4);
+  expect(newGame.receiveAttack("B", 5)).toEqual("it's a hit!");
 });

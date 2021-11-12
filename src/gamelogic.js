@@ -3,11 +3,13 @@ const ship = (length) => {
   const hitBoxesHit = [];
   const destroyed = [];
   const position = "";
+  const occupied = [];
   for (let i = 0; i < length; i++) {
     hitBoxes.push(i);
     destroyed.push("x");
   }
 
+  // const hit = (x, y) => (ship.occupied.find[x + y] = "x");
   const hit = (n) => (hitBoxes[n] = "x");
 
   function isSunk() {
@@ -30,24 +32,39 @@ const ship = (length) => {
     hitBoxesHit,
     destroyed,
     position,
+    occupied,
     hit,
     isSunk,
   };
 };
 module.exports = ship;
 
-const gameboard = (x, y) => {
-  // Should make position array, and add all coordinates, as in B2, B3, B4 etc
-  function placeShip() {
-    // Maybe use something like x + (y+i), i++
+const gameboard = () => {
+  const shots = [];
+  const boardOccupied = [];
+  function placeShip(x, y) {
     const newShip = ship(4);
     newShip.position = x + y;
-    return newShip.position;
+    for (let i = 0; i < newShip.length; i++) {
+      newShip.occupied.push(x + (y + i));
+      boardOccupied.push(x + (y + i));
+    }
+    return newShip.occupied;
   }
-  const receiveAttack = () => {
-    console.log("To be dsafds");
+  const receiveAttack = (x, y) => {
+    shots.push(x + y);
+    if (!boardOccupied.includes(x + y)) {
+      return "missed!";
+    }
+    // newShip.hit(x, y);
+    return "it's a hit!";
   };
-  return { placeShip, receiveAttack };
+  return {
+    shots,
+    boardOccupied,
+    placeShip,
+    receiveAttack,
+  };
 };
 module.exports = gameboard;
 
@@ -59,5 +76,6 @@ module.exports = gameboard;
 //  newShip.isSunk();
 //  console.log(newShip.hitBoxesHit);
 //  console.log(newShip.destroyed);
-//  const newGame = gameboard("B", 4);
-//  console.log(newGame.placeShip());
+const newGame = gameboard();
+newGame.placeShip("B", 4);
+console.log(newGame.boardOccupied);
