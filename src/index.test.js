@@ -60,5 +60,15 @@ test("determines if a shit have been hit (missed this time)", () => {
 test("determines if a shit have been hit (this time it does!)", () => {
   const newGame = gameboard();
   newGame.placeShip("B", 4);
-  expect(newGame.receiveAttack("B", 5)).toEqual("it's a hit!");
+  expect(newGame.receiveAttack("B", 5)).toEqual("It's a hit!");
+});
+
+test("notes when ship has been sunk", () => {
+  const newGame = gameboard();
+  newGame.placeShip("B", 4);
+  newGame.receiveAttack("B", 4);
+  newGame.receiveAttack("A", 6);
+  newGame.receiveAttack("B", 6);
+  newGame.receiveAttack("B", 7);
+  expect(newGame.receiveAttack("B", 5)).toEqual("SHIP HAS BEEN SUNK!");
 });

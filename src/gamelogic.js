@@ -4,6 +4,7 @@ const ship = (length) => {
   const destroyed = [];
   const position = "";
   const occupied = [];
+  const sunk = false;
   for (let i = 0; i < length; i++) {
     hitBoxes.push(i);
     destroyed.push("x");
@@ -14,6 +15,7 @@ const ship = (length) => {
   function hit(x, y) {
     const hitPoint = occupied.indexOf(x + y);
     hitBoxes[hitPoint] = "x";
+    // return "It's a hit!";
   }
   function isSunk() {
     let count = 0;
@@ -23,7 +25,6 @@ const ship = (length) => {
       }
     }
     if (count === length) {
-      console.log(count);
       return true;
     }
     return false;
@@ -31,6 +32,7 @@ const ship = (length) => {
 
   return {
     length,
+    sunk,
     hitBoxes,
     hitBoxesHit,
     destroyed,
@@ -54,7 +56,7 @@ const gameboard = () => {
       boardOccupied.push(x + (y + i));
     }
     ships.push(newShip);
-    // return newShip.occupied;
+    return newShip.occupied;
   }
   const receiveAttack = (x, y) => {
     shots.push(x + y);
@@ -62,7 +64,10 @@ const gameboard = () => {
       return "missed!";
     }
     ships[0].hit(x, y);
-    return "it's a hit!";
+    if (ships[0].isSunk() === true) {
+      return "SHIP HAS BEEN SUNK!";
+    }
+    return "It's a hit!";
   };
   return {
     shots,
@@ -74,16 +79,15 @@ const gameboard = () => {
 };
 module.exports = gameboard;
 
-//  const newShip = ship(4);
-//  newShip.hitBoxesHit = ["x", "x", "x", "x"];
-//  newShip.hit(1);
-//  newShip.hit(0);
-//  newShip.hit(2);
-//  newShip.isSunk();
-//  console.log(newShip.hitBoxesHit);
-//  console.log(newShip.destroyed);
 const newGame = gameboard();
 newGame.placeShip("B", 4);
-console.log(newGame.ships);
-newGame.receiveAttack("B", 5);
-console.log(newGame.ships);
+
+console.log(newGame.receiveAttack("B", 5));
+// console.log(newGame.ships);
+console.log(newGame.receiveAttack("B", 4));
+console.log(newGame.receiveAttack("B", 6));
+// console.log(newGame.ships);
+
+console.log(newGame.receiveAttack("A", 1));
+console.log(newGame.receiveAttack("B", 7));
+// console.log(newGame.ships);
