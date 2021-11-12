@@ -72,3 +72,14 @@ test("notes when ship has been sunk", () => {
   newGame.receiveAttack("B", 7);
   expect(newGame.receiveAttack("B", 5)).toEqual("SHIP HAS BEEN SUNK!");
 });
+
+test("let's you know if all ships have been sunk", () => {
+  const newGame = gameboard();
+  newGame.placeShip("B", 4);
+  newGame.receiveAttack("B", 4);
+  newGame.receiveAttack("A", 6);
+  newGame.receiveAttack("B", 6);
+  newGame.receiveAttack("B", 7);
+  newGame.receiveAttack("B", 5);
+  expect(newGame.loose()).toBe("All ships destroyed!");
+});
