@@ -94,18 +94,20 @@ const gameboard = () => {
 };
 module.exports = gameboard;
 
-const newGame = gameboard();
-newGame.placeShip("B", 4);
-newGame.placeShip("A", 1);
-console.log(newGame.receiveAttack("B", 5));
+const Player = (name) => ({ name });
+
+//  const newGame = gameboard();
+//  newGame.placeShip("B", 4);
+//  newGame.placeShip("A", 1);
+//  console.log(newGame.receiveAttack("B", 5));
 // console.log(newGame.ships);
-console.log(newGame.receiveAttack("B", 4));
-console.log(newGame.receiveAttack("B", 6));
-console.log(newGame.ships);
+//  console.log(newGame.receiveAttack("B", 4));
+//  console.log(newGame.receiveAttack("B", 6));
+//  console.log(newGame.ships);
 // console.log(newGame.sunken);
-// console.log(newGame.loose());
-console.log(newGame.receiveAttack("A", 1));
-console.log(newGame.receiveAttack("B", 7));
-console.log(newGame.ships);
-// console.log(newGame.sunken);
-console.log(newGame.loose());
+//   console.log(newGame.loose());
+//  console.log(newGame.receiveAttack("A", 1));
+//  console.log(newGame.receiveAttack("B", 7));
+//  console.log(newGame.ships);
+//   console.log(newGame.sunken);
+//  console.log(newGame.loose());
