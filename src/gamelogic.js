@@ -111,12 +111,24 @@ const Player = (name, enemy) => {
     const alphabet = "ABCDEFGHIJ";
     const x = alphabet[Math.floor(Math.random() * alphabet.length)];
     const y = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-    // const move = x + y;
-    return { x, y };
+    const result = x + y;
+    if (!enemyBoard.shots.includes(result)) {
+      return { x, y, result };
+    }
+    if (enemyBoard.shots.includes(result)) {
+      return makeMove();
+    }
+    // return { x, y, result };
   }
+
+  /* let move = makeMove();
+  while (enemyBoard.shots.includes(move.result)) {
+    move = makeMove();
+  } */
   return {
     name,
     turn,
+    // move,
     enemyBoard,
     makeMove,
   };
@@ -144,23 +156,116 @@ const board1 = gameboard();
 const board2 = gameboard();
 const player1 = Player("Apina", board2);
 const enemyPlayer = Player("Nemesis", board1);
-board1.placeShip("B", 4);
-board1.placeShip("C", 4);
-board1.placeShip("D", 4);
+// board1.placeShip("B", 4);
+// board1.placeShip("C", 4);
+// board1.placeShip("D", 4);
 board1.placeShip("E", 4);
+board1.receiveAttack("A", 1);
+board1.receiveAttack("A", 2);
+board1.receiveAttack("A", 3);
+board1.receiveAttack("A", 4);
+board1.receiveAttack("A", 5);
+board1.receiveAttack("A", 6);
+board1.receiveAttack("A", 7);
+board1.receiveAttack("A", 8);
+board1.receiveAttack("A", 9);
+board1.receiveAttack("A", 10);
+board1.receiveAttack("B", 1);
+board1.receiveAttack("B", 2);
+board1.receiveAttack("B", 9);
+board1.receiveAttack("B", 10);
+board1.receiveAttack("C", 1);
+board1.receiveAttack("C", 2);
+board1.receiveAttack("C", 3);
+board1.receiveAttack("C", 4);
+board1.receiveAttack("C", 5);
+board1.receiveAttack("C", 6);
+board1.receiveAttack("C", 7);
+board1.receiveAttack("C", 8);
+board1.receiveAttack("C", 9);
+board1.receiveAttack("C", 10);
+board1.receiveAttack("D", 1);
+board1.receiveAttack("D", 2);
+board1.receiveAttack("D", 3);
+board1.receiveAttack("D", 4);
+board1.receiveAttack("D", 5);
+board1.receiveAttack("D", 6);
+board1.receiveAttack("D", 7);
+board1.receiveAttack("D", 8);
+board1.receiveAttack("D", 9);
+board1.receiveAttack("D", 10);
+board1.receiveAttack("E", 1);
+board1.receiveAttack("E", 2);
+board1.receiveAttack("E", 3);
+board1.receiveAttack("E", 8);
+board1.receiveAttack("E", 9);
+board1.receiveAttack("E", 10);
+board1.receiveAttack("F", 1);
+board1.receiveAttack("F", 2);
+board1.receiveAttack("F", 3);
+board1.receiveAttack("F", 4);
+board1.receiveAttack("F", 5);
+board1.receiveAttack("F", 6);
+board1.receiveAttack("F", 7);
+board1.receiveAttack("F", 8);
+board1.receiveAttack("F", 9);
+board1.receiveAttack("F", 10);
+board1.receiveAttack("G", 1);
+board1.receiveAttack("G", 2);
+board1.receiveAttack("G", 3);
+board1.receiveAttack("G", 4);
+board1.receiveAttack("G", 5);
+board1.receiveAttack("G", 6);
+board1.receiveAttack("G", 7);
+board1.receiveAttack("G", 8);
+board1.receiveAttack("G", 9);
+board1.receiveAttack("G", 10);
+board1.receiveAttack("H", 1);
+board1.receiveAttack("H", 2);
+board1.receiveAttack("H", 3);
+board1.receiveAttack("H", 4);
+board1.receiveAttack("H", 5);
+board1.receiveAttack("H", 6);
+board1.receiveAttack("H", 7);
+board1.receiveAttack("H", 8);
+board1.receiveAttack("H", 9);
+board1.receiveAttack("H", 10);
+board1.receiveAttack("I", 1);
+board1.receiveAttack("I", 2);
+board1.receiveAttack("I", 3);
+board1.receiveAttack("I", 4);
+board1.receiveAttack("I", 5);
+board1.receiveAttack("I", 6);
+board1.receiveAttack("I", 7);
+board1.receiveAttack("I", 8);
+board1.receiveAttack("I", 9);
+board1.receiveAttack("I", 10);
+board1.receiveAttack("J", 1);
+board1.receiveAttack("J", 2);
+board1.receiveAttack("J", 3);
+board1.receiveAttack("J", 4);
+board1.receiveAttack("J", 5);
+board1.receiveAttack("J", 6);
+
+console.log(enemyPlayer.enemyBoard.shots);
 // board2.placeShip("A", 2);
 
-console.log(player1.enemyBoard.receiveAttack("C", 3));
-console.log(player1.enemyBoard.receiveAttack("A", 3));
+// console.log(player1.enemyBoard.receiveAttack("C", 3));
+// console.log(player1.enemyBoard.receiveAttack("A", 3));
 // console.log(board2.shots);
 // console.log(enemyBoard.boardOccupied);
 // console.log(enemyBoard.ships[0].hitBoxes);
 
-const x = enemyPlayer.makeMove();
-const y = enemyPlayer.makeMove();
-console.log(x.x);
-console.log(y.y);
-console.log(enemyPlayer.enemyBoard.receiveAttack(x.x, y.y));
+const siirto = enemyPlayer.makeMove();
+//  const a = siirto.slice;
+//  const b = siirto(1);
+const a = siirto.x;
+const b = siirto.y;
+console.log(a);
+console.log(b);
+console.log(siirto.result);
+// console.log(enemyPlayer.enemyBoard.receiveAttack(x.x, y.y));
+console.log(enemyPlayer.enemyBoard.receiveAttack(a, b));
 
 //  const newGame = gameboard();
 //  const comp = comPlayer(newGame.boardOccupied);
