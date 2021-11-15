@@ -1,4 +1,6 @@
 /* eslint-disable import/no-import-module-exports */
+
+// ONCE GOT RIDOFF TESTS, IMPORT GAMELOGIC AND DOM HERE
 import "regenerator-runtime/runtime";
 
 console.log("test2");

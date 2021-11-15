@@ -15,10 +15,13 @@ const ship = (length) => {
     destroyed.push("x");
   }
 
+  // Determines if ship has been hit
   function hit(x, y) {
     const hitPoint = occupied.indexOf(x + y);
     hitBoxes[hitPoint] = "x";
   }
+
+  // Determines if the ship has been sunk
   function isSunk() {
     let count = 0;
     for (let i = 0; i < length; i++) {
@@ -33,6 +36,7 @@ const ship = (length) => {
     return false;
   }
 
+  // NOTE: Clean up useless returns
   return {
     length,
     sunk,
@@ -49,7 +53,8 @@ const gameboard = () => {
   const shots = [];
   const boardOccupied = [];
   const ships = [];
-  // const sunken = 0;
+
+  // Calls ship() function and places ship on board
   function placeShip(x, y) {
     const newShip = ship(4);
     for (let i = 0; i < newShip.length; i++) {
@@ -59,6 +64,8 @@ const gameboard = () => {
     ships.push(newShip);
     return newShip.occupied;
   }
+
+  // Receive enemy shot and determine if it's amiss or hit
   const receiveAttack = (x, y) => {
     shots.push(x + y);
     if (!boardOccupied.includes(x + y)) {
@@ -74,6 +81,7 @@ const gameboard = () => {
     return "It's a hit!";
   };
 
+  // Function to inform if every ship has been sunk
   function loose() {
     const sunkenShips = ships.filter(({ sunk }) => sunk === true).length;
     if (sunkenShips === ships.length) {
@@ -82,6 +90,7 @@ const gameboard = () => {
     return false;
   }
 
+  // NOTE: Clear useless returns
   return {
     shots,
     // sunken,
@@ -94,8 +103,30 @@ const gameboard = () => {
 };
 module.exports = gameboard;
 
-const Player = (name) => ({ name });
+/* const Player = (name) => {
+  const turn = false;
+  return { name, turn };
+}; */
 
+const comPlayer = () => {
+  const name = "com";
+  const turn = false;
+
+  function makeMove() {
+    const alphabet = "ABCDEFGHIJ";
+    const x = alphabet[Math.floor(Math.random() * alphabet.length)];
+    const y = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+    return { x, y };
+  }
+  return {
+    name,
+    turn,
+    makeMove,
+  };
+};
+
+const comp = comPlayer();
+console.log(comp.makeMove());
 //  const newGame = gameboard();
 //  newGame.placeShip("B", 4);
 //  newGame.placeShip("A", 1);
