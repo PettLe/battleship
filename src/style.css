@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#gameboards {
+  display: flex;
+  gap: 3vw;
+}
+
+#gameboard1,
+#gameboard2 {
+  width: 33vw;
+  height: 33vw;
+}
+
+#gameboard2 .box {
+  background-color: indianred;
+}
+
+.row {
+  display: flex;
+  border: 1px solid black;
+  min-height: 3.3vw;
+}
+
+.box {
+  background-color: cadetblue;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  width: 10vw;
+}
+
+.box:hover {
+  opacity: 0.5;
+}

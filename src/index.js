@@ -2,8 +2,10 @@
 
 // ONCE GOT RIDOFF TESTS, IMPORT GAMELOGIC AND DOM HERE
 import "regenerator-runtime/runtime";
+import gameboardGrid from "./dom.js";
+import "./style.css";
 
-console.log("test2");
+gameboardGrid();
 
 /* function sum(a, b) {
   return a + b;

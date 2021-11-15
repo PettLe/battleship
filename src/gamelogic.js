@@ -120,6 +120,9 @@ const Player = (name, enemy) => {
     }
     // return { x, y, result };
   }
+  //  const move = this.makeMove();
+  //  const a = move.x;
+  //  const b = move.y;
 
   /* let move = makeMove();
   while (enemyBoard.shots.includes(move.result)) {
@@ -128,7 +131,9 @@ const Player = (name, enemy) => {
   return {
     name,
     turn,
-    // move,
+    //  a,
+    //  b,
+    //  move,
     enemyBoard,
     makeMove,
   };
@@ -247,7 +252,7 @@ board1.receiveAttack("J", 4);
 board1.receiveAttack("J", 5);
 board1.receiveAttack("J", 6);
 
-console.log(enemyPlayer.enemyBoard.shots);
+//  console.log(enemyPlayer.enemyBoard.shots);
 // board2.placeShip("A", 2);
 
 // console.log(player1.enemyBoard.receiveAttack("C", 3));
@@ -256,16 +261,19 @@ console.log(enemyPlayer.enemyBoard.shots);
 // console.log(enemyBoard.boardOccupied);
 // console.log(enemyBoard.ships[0].hitBoxes);
 
-const siirto = enemyPlayer.makeMove();
 //  const a = siirto.slice;
 //  const b = siirto(1);
+
+const siirto = enemyPlayer.makeMove();
 const a = siirto.x;
 const b = siirto.y;
-console.log(a);
-console.log(b);
-console.log(siirto.result);
+// console.log(a);
+// console.log(b);
+// console.log(siirto.result);
 // console.log(enemyPlayer.enemyBoard.receiveAttack(x.x, y.y));
+// console.log(enemyPlayer.move.result);
 console.log(enemyPlayer.enemyBoard.receiveAttack(a, b));
+console.log(enemyPlayer.enemyBoard.shots);
 
 //  const newGame = gameboard();
 //  const comp = comPlayer(newGame.boardOccupied);
