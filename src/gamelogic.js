@@ -103,12 +103,26 @@ const gameboard = () => {
 };
 module.exports = gameboard;
 
-/* const Player = (name) => {
+const Player = (name, enemy) => {
   const turn = false;
-  return { name, turn };
-}; */
+  const enemyBoard = enemy;
 
-const comPlayer = () => {
+  function makeMove() {
+    const alphabet = "ABCDEFGHIJ";
+    const x = alphabet[Math.floor(Math.random() * alphabet.length)];
+    const y = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+    // const move = x + y;
+    return { x, y };
+  }
+  return {
+    name,
+    turn,
+    enemyBoard,
+    makeMove,
+  };
+};
+
+/* const comPlayer = () => {
   const name = "com";
   const turn = false;
 
@@ -116,18 +130,41 @@ const comPlayer = () => {
     const alphabet = "ABCDEFGHIJ";
     const x = alphabet[Math.floor(Math.random() * alphabet.length)];
     const y = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-    return { x, y };
+    const move = x + y;
+    return { move };
   }
   return {
     name,
     turn,
     makeMove,
   };
-};
+}; */
 
-const comp = comPlayer();
-console.log(comp.makeMove());
+const board1 = gameboard();
+const board2 = gameboard();
+const player1 = Player("Apina", board2);
+const enemyPlayer = Player("Nemesis", board1);
+board1.placeShip("B", 4);
+board1.placeShip("C", 4);
+board1.placeShip("D", 4);
+board1.placeShip("E", 4);
+// board2.placeShip("A", 2);
+
+console.log(player1.enemyBoard.receiveAttack("C", 3));
+console.log(player1.enemyBoard.receiveAttack("A", 3));
+// console.log(board2.shots);
+// console.log(enemyBoard.boardOccupied);
+// console.log(enemyBoard.ships[0].hitBoxes);
+
+const x = enemyPlayer.makeMove();
+const y = enemyPlayer.makeMove();
+console.log(x.x);
+console.log(y.y);
+console.log(enemyPlayer.enemyBoard.receiveAttack(x.x, y.y));
+
 //  const newGame = gameboard();
+//  const comp = comPlayer(newGame.boardOccupied);
+//  console.log(comp.makeMove(newGame.boardOccupied));
 //  newGame.placeShip("B", 4);
 //  newGame.placeShip("A", 1);
 //  console.log(newGame.receiveAttack("B", 5));
