@@ -5,7 +5,7 @@
 3 x Destroyer, size 3
 3 x Patrol Boat, size 2  */
 
-const ship = (length) => {
+export const ship = (length) => {
   const hitBoxes = [];
   const destroyed = [];
   const occupied = [];
@@ -47,16 +47,16 @@ const ship = (length) => {
     isSunk,
   };
 };
-module.exports = ship;
+//  module.exports = ship;
 
-const gameboard = () => {
+export const gameboard = () => {
   const shots = [];
   const boardOccupied = [];
   const ships = [];
 
   // Calls ship() function and places ship on board
-  function placeShip(x, y) {
-    const newShip = ship(4);
+  function placeShip(x, y, length) {
+    const newShip = ship(length);
     for (let i = 0; i < newShip.length; i++) {
       newShip.occupied.push(x + (y + i));
       boardOccupied.push(x + (y + i));
@@ -101,9 +101,9 @@ const gameboard = () => {
     loose,
   };
 };
-module.exports = gameboard;
+//  module.exports = gameboard;
 
-const Player = (name, enemy) => {
+export const Player = (name, enemy) => {
   const turn = false;
   const enemyBoard = enemy;
 
@@ -272,8 +272,9 @@ const b = siirto.y;
 // console.log(siirto.result);
 // console.log(enemyPlayer.enemyBoard.receiveAttack(x.x, y.y));
 // console.log(enemyPlayer.move.result);
-console.log(enemyPlayer.enemyBoard.receiveAttack(a, b));
-console.log(enemyPlayer.enemyBoard.shots);
+
+// console.log(enemyPlayer.enemyBoard.receiveAttack(a, b));
+// console.log(enemyPlayer.enemyBoard.shots);
 
 //  const newGame = gameboard();
 //  const comp = comPlayer(newGame.boardOccupied);
