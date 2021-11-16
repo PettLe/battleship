@@ -35,3 +35,9 @@
 .box:hover {
   opacity: 0.5;
 }
+
+/* Probably need to separate these later in order to make enemy ships invisible! */
+.shipBox,
+#gameboard2 .shipBox {
+  background-color: indigo;
+}

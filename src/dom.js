@@ -6,14 +6,12 @@ export default function gameboardGrid() {
     row.classList.add("row");
     grid1.appendChild(row);
     row.dataset.id = indexLetters[i];
-    // console.log(row.dataset.id);
     for (let j = 1; j < 11; j++) {
       const box = document.createElement("div");
       box.classList.add("box");
       box.textContent = "FLAA";
       box.dataset.id = row.dataset.id + j;
       row.appendChild(box);
-      //    console.log(row.dataset.id + j);
     }
   }
 
@@ -22,11 +20,24 @@ export default function gameboardGrid() {
     const row = document.createElement("div");
     row.classList.add("row");
     grid2.appendChild(row);
+    row.dataset.id = indexLetters[i];
     for (let j = 0; j < 10; j++) {
       const box = document.createElement("div");
       box.classList.add("box");
       box.textContent = "Röh";
+      box.dataset.id = row.dataset.id + j;
       row.appendChild(box);
     }
   }
+}
+
+export function drawShips(array) {
+  const boxes = document.getElementsByClassName("box");
+  for (let i = 0; i < boxes.length; i++) {
+    if (array.includes(boxes[i].dataset.id)) {
+      boxes[i].classList.add("shipBox");
+      // boxes[i].style.backgroundColor = "black";
+    }
+  }
+  // console.log(boxes);
 }

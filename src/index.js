@@ -2,7 +2,7 @@
 
 // ONCE GOT RIDOFF TESTS, IMPORT GAMELOGIC AND DOM HERE
 import "regenerator-runtime/runtime";
-import gameboardGrid from "./dom.js";
+import gameboardGrid, { drawShips } from "./dom.js";
 import { ship, gameboard, Player } from "./gamelogic.js";
 import "./style.css";
 
@@ -35,6 +35,14 @@ board2.placeShip("G", 7, 2);
 board2.placeShip("H", 8, 2);
 board2.placeShip("I", 6, 2);
 
+/* const boxes = document.getElementsByClassName(".box");
+for (let i = 0; i < boxes.length; i++) {
+  if (board1.boardOccupied.includes(boxes[i])) {
+    boxes[i].style.backgroundColor = "black";
+  }
+} */
+drawShips(board1.boardOccupied);
+drawShips(board2.boardOccupied);
 console.log(board1.boardOccupied);
 console.log(board1.ships);
 console.log(board2.boardOccupied);
