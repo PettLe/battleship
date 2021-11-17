@@ -6,6 +6,11 @@
   box-sizing: border-box;
 }
 
+body {
+  background-image: url("bgimg.jpeg");
+  background-size: cover;
+}
+
 #gameboards {
   display: flex;
   align-items: center;
