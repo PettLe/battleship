@@ -34,14 +34,27 @@ export default function gameboardGrid(gameboard) {
       box.textContent = "";
       box.dataset.id = row.dataset.id + j;
       row.appendChild(box);
+
       box.addEventListener("click", () => {
+        let shipIndex = "";
+        for (let x = 0; x < gameboard.ships.length; x++) {
+          if (gameboard.ships[x].occupied.includes(box.dataset.id)) {
+            shipIndex = x;
+          }
+          console.log(shipIndex);
+        }
+        /* if (gameboard.ships.occupied.includes(box.dataset.id)) {
+          shipIndex = box.dataset.id;
+        } */
         console.log(box.dataset.id);
         // console.log(gameboard.boardOccupied);
+        gameboard.receiveAttack(indexLetters[i], j, shipIndex);
         if (gameboard.boardOccupied.includes(box.dataset.id)) {
           box.style.backgroundColor = "red";
         } else {
           box.style.backgroundColor = "blue";
         }
+        gameboard.loose();
       });
     }
   }

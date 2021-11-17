@@ -66,26 +66,31 @@ export const gameboard = () => {
   }
 
   // Receive enemy shot and determine if it's amiss or hit
-  const receiveAttack = (x, y) => {
+  const receiveAttack = (x, y, shipIndex) => {
     shots.push(x + y);
     if (!boardOccupied.includes(x + y)) {
       return "missed!";
     }
-    ships[0].hit(x, y);
-    if (ships[0].isSunk() === true) {
+    ships[shipIndex].hit(x, y);
+    if (ships[shipIndex].isSunk() === true) {
       console.log(
         `${ships.filter(({ sunk }) => sunk === true).length} AAAAAAA`
       );
-      return alert("SHIP HAS BEEN SUNK!");
+      console.log(ships);
+      console.log(shipIndex);
+      return console.log("SHIP HAS BEEN SUNK!");
     }
-    return "It's a hit!";
+    console.log(ships);
+    console.log(shipIndex);
+
+    return console.log("It's a hit!");
   };
 
   // Function to inform if every ship has been sunk
   function loose() {
     const sunkenShips = ships.filter(({ sunk }) => sunk === true).length;
     if (sunkenShips === ships.length) {
-      return prompt("All ships destroyed!");
+      return alert("All ships destroyed!");
     }
     return false;
   }
