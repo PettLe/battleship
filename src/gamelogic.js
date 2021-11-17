@@ -76,7 +76,7 @@ export const gameboard = () => {
       console.log(
         `${ships.filter(({ sunk }) => sunk === true).length} AAAAAAA`
       );
-      return "SHIP HAS BEEN SUNK!";
+      return alert("SHIP HAS BEEN SUNK!");
     }
     return "It's a hit!";
   };
@@ -85,7 +85,7 @@ export const gameboard = () => {
   function loose() {
     const sunkenShips = ships.filter(({ sunk }) => sunk === true).length;
     if (sunkenShips === ships.length) {
-      return "All ships destroyed!";
+      return prompt("All ships destroyed!");
     }
     return false;
   }

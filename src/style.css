@@ -6,17 +6,26 @@
 
 #gameboards {
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 3vw;
 }
 
 #gameboard1,
 #gameboard2 {
+  /*  display: flex;
+  flex-direction: column;*/
   width: 33vw;
   height: 33vw;
 }
+h2 {
+  margin-left: auto;
+  text-align: center;
+  padding: 3vh 3vh 3vh 3vh;
+}
 
 #gameboard2 .box {
-  background-color: indianred;
+  background-color: rgb(89, 132, 182);
 }
 
 .row {
@@ -26,7 +35,7 @@
 }
 
 .box {
-  background-color: cadetblue;
+  background-color: rgb(89, 132, 182);
   border-left: 1px solid black;
   border-right: 1px solid black;
   width: 10vw;
@@ -37,7 +46,10 @@
 }
 
 /* Probably need to separate these later in order to make enemy ships invisible! */
-.shipBox,
+.shipBox {
+  background-color: black;
+}
+
 #gameboard2 .shipBox {
-  background-color: indigo;
+  background-color: rgb(89, 132, 182);
 }

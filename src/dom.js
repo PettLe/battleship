@@ -1,4 +1,4 @@
-export default function gameboardGrid() {
+export default function gameboardGrid(gameboard) {
   const grid1 = document.getElementById("gameboard1");
   const indexLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
   for (let i = 0; i < 10; i++) {
@@ -9,9 +9,16 @@ export default function gameboardGrid() {
     for (let j = 1; j < 11; j++) {
       const box = document.createElement("div");
       box.classList.add("box");
-      box.textContent = "FLAA";
+      box.textContent = "";
       box.dataset.id = row.dataset.id + j;
       row.appendChild(box);
+      /* box.addEventListener("click", () => {
+        if (gameboard.boardOccupied.includes(box.dataset.id)) {
+          box.style.backgroundColor = "red";
+        } else {
+          box.style.backgroundColor = "blue";
+        }
+      }); */
     }
   }
 
@@ -21,12 +28,21 @@ export default function gameboardGrid() {
     row.classList.add("row");
     grid2.appendChild(row);
     row.dataset.id = indexLetters[i];
-    for (let j = 0; j < 10; j++) {
+    for (let j = 1; j < 11; j++) {
       const box = document.createElement("div");
       box.classList.add("box");
-      box.textContent = "Röh";
+      box.textContent = "";
       box.dataset.id = row.dataset.id + j;
       row.appendChild(box);
+      box.addEventListener("click", () => {
+        console.log(box.dataset.id);
+        // console.log(gameboard.boardOccupied);
+        if (gameboard.boardOccupied.includes(box.dataset.id)) {
+          box.style.backgroundColor = "red";
+        } else {
+          box.style.backgroundColor = "blue";
+        }
+      });
     }
   }
 }

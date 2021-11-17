@@ -10,11 +10,11 @@ import "./style.css";
 2 x Battleship, size 4
 3 x Destroyer, size 3
 3 x Patrol Boat, size 2  */
-gameboardGrid();
 const board1 = gameboard();
 const board2 = gameboard();
 const player1 = Player("Apina", board2);
 const playerCom = Player("Nemesis", board1);
+gameboardGrid(board2);
 board1.placeShip("A", 1, 5);
 board1.placeShip("B", 2, 4);
 board1.placeShip("C", 3, 4);
