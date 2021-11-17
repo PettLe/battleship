@@ -9,6 +9,7 @@
 body {
   background-image: url("bgimg.jpeg");
   background-size: cover;
+  background-repeat: no-repeat;
 }
 
 #gameboards {
@@ -41,13 +42,15 @@ h2 {
   min-height: 3.3vw;
 }
 
-.box {
+.box,
+.box1 {
   background-color: rgb(89, 132, 182);
   border-left: 1px solid black;
   border-right: 1px solid black;
   width: 10vw;
 }
 
+.box:hover,
 .box:hover {
   opacity: 0.5;
 }

@@ -14,7 +14,9 @@ const board1 = gameboard();
 const board2 = gameboard();
 const player1 = Player("Apina", board2);
 const playerCom = Player("Nemesis", board1);
-gameboardGrid(board2);
+gameboardGrid(board2, playerCom);
+
+//  console.log(playerCom.name);
 board1.placeShip("A", 1, 5);
 board1.placeShip("B", 2, 4);
 board1.placeShip("C", 3, 4);
@@ -42,7 +44,7 @@ for (let i = 0; i < boxes.length; i++) {
   }
 } */
 drawShips(board1.boardOccupied);
-drawShips(board2.boardOccupied);
+// drawShips(board2.boardOccupied);
 console.log(board1.boardOccupied);
 console.log(board1.ships);
 console.log(board2.boardOccupied);
