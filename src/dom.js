@@ -54,7 +54,7 @@ export default function gameboardGrid(gameboard, Player) {
         // OR MAYBE: grid1.childNode and then childNode.id = move.result etc?
         // Aiempi bugi querySelectorin ja getId kanssa saattoi johtua draw functionin bugista?
         // setTimeout(() => {
-        console.log(Player.enemyBoard.boardOccupied);
+        // console.log(Player.enemyBoard.boardOccupied);
         //    console.log(grid1.childNodes);
         const move = Player.makeMove();
         const a = move.x;
@@ -64,39 +64,34 @@ export default function gameboardGrid(gameboard, Player) {
           if (Player.enemyBoard.ships[h].occupied.includes(move.result)) {
             shipIndex2 = h;
           }
-          console.log(Player.enemyBoard.ships[h].occupied);
+          // console.log(Player.enemyBoard.ships[h].occupied);
         }
         // console.log(`ShipIndex1 is ${shipIndex}`);
         console.log(move.result);
         Player.enemyBoard.receiveAttack(a, b, shipIndex2);
-        console.log(Player.enemyBoard.ships);
-        /* const box1 = document.getElementById(move.result);
-          console.log(
-            document
-              .querySelector(`[dataset.id]="${move.result}"`)
-              .dataset("dataset.id")
-          ); */
         const box1 = document.getElementsByClassName("box1");
-        // const boxIndex = box1.indexOf(c);
-        if (Player.enemyBoard.boardOccupied.includes(move.result)) {
-          /* console.log(
-              typeof document
-                .querySelector(`[dataset.id]="${move.result}"`)
-                .dataset("dataset.id")
-            ); */
-          // console.log(box1[1].dataset.id);
-          // console.log(boxIndex);
-          box1[7].style.backgroundColor = "red";
-        } else {
-          /* console.log(
-              typeof document
-                .querySelector(`[dataset.id]="${move.result}"`)
-                .dataset("dataset.id")
-            ); */
-          // console.log(box1[1].dataset.id);
-          // console.log(boxIndex);
-          box1[28].style.backgroundColor = "blue";
+        const boxIndex = 0;
+        for (let i = 0; i < box1.length; i++) {
+          if (box1[i].dataset.id === move.result) {
+            console.log(box1[i]);
+            if (Player.enemyBoard.boardOccupied.includes(move.result)) {
+              box1[i].style.backgroundColor = "red";
+            } else {
+              box1[i].style.backgroundColor = "blue";
+            }
+            // console.log(box1.indexOf[box1[3]]);
+            // boxIndex = box1.indexOf(box1[i].dataset.id);
+            console.log(boxIndex);
+          }
         }
+        // const box1 = document.querySelector(`${move.result}`);
+        console.log(box1);
+        // const boxIndex = box1.indexOf(c);
+        /* if (Player.enemyBoard.boardOccupied.includes(move.result)) {
+          box1.style.backgroundColor = "red";
+        } else {
+          box1.style.backgroundColor = "blue";
+        } */
         // }, 2000);
         gameboard.loose();
         Player.enemyBoard.loose();

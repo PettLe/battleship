@@ -80,8 +80,8 @@ export const gameboard = () => {
       console.log(shipIndex);
       return console.log("SHIP HAS BEEN SUNK!");
     }
-    console.log(ships);
-    console.log(shipIndex);
+    // console.log(ships);
+    // console.log(shipIndex);
 
     return console.log("It's a hit!");
   };
