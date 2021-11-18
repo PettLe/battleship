@@ -49,6 +49,7 @@ export default function gameboardGrid(gameboard, Player) {
         } else {
           box.style.backgroundColor = "blue";
         }
+
         // DETERMINING COMPUTERS ACTION - NEEDS FIXING - THE FIRST BOX NEEDS IT'S OWN NAME/VARIABLE
         // OR MAYBE: grid1.childNode and then childNode.id = move.result etc?
         // Aiempi bugi querySelectorin ja getId kanssa saattoi johtua draw functionin bugista?
@@ -67,8 +68,8 @@ export default function gameboardGrid(gameboard, Player) {
         }
         // console.log(`ShipIndex1 is ${shipIndex}`);
         console.log(move.result);
-        console.log(`ShipIndex2 is ${shipIndex2}`);
         Player.enemyBoard.receiveAttack(a, b, shipIndex2);
+        console.log(Player.enemyBoard.ships);
         /* const box1 = document.getElementById(move.result);
           console.log(
             document
@@ -98,6 +99,7 @@ export default function gameboardGrid(gameboard, Player) {
         }
         // }, 2000);
         gameboard.loose();
+        Player.enemyBoard.loose();
       });
     }
   }
