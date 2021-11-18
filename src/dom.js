@@ -9,17 +9,9 @@ export default function gameboardGrid(gameboard, Player) {
     for (let j = 1; j < 11; j++) {
       const box = document.createElement("div");
       box.classList.add("box1");
-      // box.classList.add("box");
       box.textContent = "";
       box.dataset.id = row.dataset.id + j;
       row.appendChild(box);
-      /* box.addEventListener("click", () => {
-        if (gameboard.boardOccupied.includes(box.dataset.id)) {
-          box.style.backgroundColor = "red";
-        } else {
-          box.style.backgroundColor = "blue";
-        }
-      }); */
     }
   }
 
@@ -35,7 +27,6 @@ export default function gameboardGrid(gameboard, Player) {
       box.textContent = "";
       box.dataset.id = row.dataset.id + j;
       row.appendChild(box);
-      //    console.log(Player.name);
       box.addEventListener("click", () => {
         let shipIndex = "";
         for (let x = 0; x < gameboard.ships.length; x++) {
@@ -50,63 +41,42 @@ export default function gameboardGrid(gameboard, Player) {
           box.style.backgroundColor = "blue";
         }
 
-        // DETERMINING COMPUTERS ACTION - NEEDS FIXING - THE FIRST BOX NEEDS IT'S OWN NAME/VARIABLE
-        // OR MAYBE: grid1.childNode and then childNode.id = move.result etc?
-        // Aiempi bugi querySelectorin ja getId kanssa saattoi johtua draw functionin bugista?
-        // setTimeout(() => {
-        // console.log(Player.enemyBoard.boardOccupied);
-        //    console.log(grid1.childNodes);
-        const move = Player.makeMove();
-        const a = move.x;
-        const b = move.y;
-        let shipIndex2 = "";
-        for (let h = 0; h < gameboard.ships.length; h++) {
-          if (Player.enemyBoard.ships[h].occupied.includes(move.result)) {
-            shipIndex2 = h;
-          }
-          // console.log(Player.enemyBoard.ships[h].occupied);
-        }
-        // console.log(`ShipIndex1 is ${shipIndex}`);
-        console.log(move.result);
-        Player.enemyBoard.receiveAttack(a, b, shipIndex2);
-        const box1 = document.getElementsByClassName("box1");
-        const boxIndex = 0;
-        for (let i = 0; i < box1.length; i++) {
-          if (box1[i].dataset.id === move.result) {
-            console.log(box1[i]);
-            if (Player.enemyBoard.boardOccupied.includes(move.result)) {
-              box1[i].style.backgroundColor = "red";
-            } else {
-              box1[i].style.backgroundColor = "blue";
+        // DETERMINING COMPUTERS ACTION
+        setTimeout(() => {
+          const move = Player.makeMove();
+          const a = move.x;
+          const b = move.y;
+          let shipIndex2 = "";
+          for (let h = 0; h < gameboard.ships.length; h++) {
+            if (Player.enemyBoard.ships[h].occupied.includes(move.result)) {
+              shipIndex2 = h;
             }
-            // console.log(box1.indexOf[box1[3]]);
-            // boxIndex = box1.indexOf(box1[i].dataset.id);
-            console.log(boxIndex);
           }
-        }
-        // const box1 = document.querySelector(`${move.result}`);
-        console.log(box1);
-        // const boxIndex = box1.indexOf(c);
-        /* if (Player.enemyBoard.boardOccupied.includes(move.result)) {
-          box1.style.backgroundColor = "red";
-        } else {
-          box1.style.backgroundColor = "blue";
-        } */
-        // }, 2000);
+          console.log(move.result);
+          Player.enemyBoard.receiveAttack(a, b, shipIndex2);
+          const box1 = document.getElementsByClassName("box1");
+          for (let i = 0; i < box1.length; i++) {
+            if (box1[i].dataset.id === move.result) {
+              if (Player.enemyBoard.boardOccupied.includes(move.result)) {
+                box1[i].style.backgroundColor = "red";
+              } else {
+                box1[i].style.backgroundColor = "blue";
+              }
+            }
+          }
+        }, 850);
         gameboard.loose();
         Player.enemyBoard.loose();
       });
     }
   }
 }
-// NYT MAALAA DATASETIN TAKIA MYÖS VIHOLLISEN LAIVAT PELAAJALLE
+
 export function drawShips(array) {
   const boxes = document.getElementsByClassName("box1");
   for (let i = 0; i < boxes.length; i++) {
     if (array.includes(boxes[i].dataset.id)) {
       boxes[i].classList.add("shipBox");
-      // boxes[i].style.backgroundColor = "black";
     }
   }
-  // console.log(boxes);
 }

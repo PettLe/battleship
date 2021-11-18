@@ -16,7 +16,6 @@ const player1 = Player("Apina", board2);
 const playerCom = Player("Nemesis", board1);
 gameboardGrid(board2, playerCom);
 
-//  console.log(playerCom.name);
 board1.placeShip("A", 1, 5);
 board1.placeShip("B", 2, 4);
 board1.placeShip("C", 3, 4);
@@ -37,20 +36,4 @@ board2.placeShip("G", 7, 2);
 board2.placeShip("H", 8, 2);
 board2.placeShip("I", 6, 2);
 
-/* const boxes = document.getElementsByClassName(".box");
-for (let i = 0; i < boxes.length; i++) {
-  if (board1.boardOccupied.includes(boxes[i])) {
-    boxes[i].style.backgroundColor = "black";
-  }
-} */
 drawShips(board1.boardOccupied);
-// drawShips(board2.boardOccupied);
-console.log(board1.boardOccupied);
-console.log(board1.ships);
-console.log(board2.boardOccupied);
-console.log(board2.ships);
-
-/* function sum(a, b) {
-  return a + b;
-}
-module.exports = sum; */
