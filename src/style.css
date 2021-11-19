@@ -66,5 +66,29 @@ h2 {
 }
 
 #replay {
+  background-color: rgb(143, 255, 143);
+  border-radius: 5px;
   padding: 1vh;
+  margin: 2vh 2vh 2vh 2vh;
+  font-size: 1.6rem;
+}
+
+#replay:hover {
+  background-color: rgb(202, 202, 202);
+}
+
+#turn {
+  background-color: rgb(143, 255, 143);
+  border-radius: 5px;
+}
+#turn:hover {
+  background-color: rgb(202, 202, 202);
+}
+
+.chooseShips {
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2vh;
 }

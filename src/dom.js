@@ -70,10 +70,39 @@ export default function gameboardGrid(gameboard, Player) {
       });
     }
   }
+  // REPLAY BUTTON
   const replay = document.getElementById("replay");
   replay.addEventListener("click", () => {
     window.location.reload(true);
   });
+
+  //  Rendering chosen location for ship
+  const shipBtn = document.getElementsByClassName("shipBtn");
+  const box1 = document.getElementsByClassName("box1");
+  for (let g = 0; g < shipBtn.length; g++) {
+    shipBtn[g].addEventListener("click", () => {
+      for (let i = 0; i < box1.length; i++) {
+        box1[i].addEventListener("mouseover", () => {
+          for (let a = 0; a < shipBtn[g].value; a++) {
+            if (
+              !Player.enemyBoard.boardOccupied.includes(box1[i + a].dataset.id)
+            ) {
+              box1[i + a].style.backgroundColor = "orange";
+            }
+          }
+        });
+        box1[i].addEventListener("mouseout", () => {
+          for (let a = 0; a < shipBtn[g].value; a++) {
+            if (
+              !Player.enemyBoard.boardOccupied.includes(box1[i + a].dataset.id)
+            ) {
+              box1[i + a].style.backgroundColor = "rgb(89, 132, 182)";
+            }
+          }
+        });
+      }
+    });
+  }
 }
 
 export function drawShips(array) {
