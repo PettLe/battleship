@@ -58,24 +58,29 @@ export const gameboard = () => {
   const ships = [];
 
   // Calls ship() function and places ship on board
-  /* For verticals do something like:
-  arr = [a,b,c]
-  newShip.occupied.push((arr[i]) + y) */
   function placeShip(x, y, length, vertical) {
     const newShip = ship(length, vertical);
     if (vertical === true) {
-      console.log("REKISTERÖI YHDEN VERTIKAALIN");
       for (let i = 0; i < newShip.length; i++) {
         const arr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
         const indexX = arr.indexOf(x);
-        newShip.occupied.push(arr[indexX + i] + y);
-        console.log(arr[indexX + i]);
-        boardOccupied.push(arr[indexX + i] + y);
+        if (boardOccupied.includes(x + (y + i)) || !arr[indexX + i]) {
+          alert("Illegal placement");
+          window.location.reload();
+        } else {
+          newShip.occupied.push(arr[indexX + i] + y);
+          boardOccupied.push(arr[indexX + i] + y);
+        }
       }
     } else {
       for (let i = 0; i < newShip.length; i++) {
-        newShip.occupied.push(x + (y + i));
-        boardOccupied.push(x + (y + i));
+        if (boardOccupied.includes(x + (y + i)) || y + i > 10) {
+          alert("Illegal placement");
+          window.location.reload();
+        } else {
+          newShip.occupied.push(x + (y + i));
+          boardOccupied.push(x + (y + i));
+        }
       }
     }
     ships.push(newShip);

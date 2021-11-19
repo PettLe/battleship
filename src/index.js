@@ -21,10 +21,10 @@ board1.placeShip("B", 2, 4, false);
 board1.placeShip("C", 3, 4, false);
 board1.placeShip("D", 4, 3, false);
 board1.placeShip("E", 5, 3, false);
-board1.placeShip("F", 5, 3, false);
+board1.placeShip("F", 7, 3, false);
 board1.placeShip("G", 3, 2, true);
 board1.placeShip("H", 6, 2, false);
-board1.placeShip("I", 6, 2, false);
+board1.placeShip("J", 6, 2, false);
 
 board2.placeShip("A", 2, 5, false);
 board2.placeShip("B", 1, 4, false);
