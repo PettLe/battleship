@@ -6,11 +6,12 @@
 3 x Destroyer, size 3
 3 x Patrol Boat, size 2  */
 
-export const ship = (length) => {
+export const ship = (length, vertical) => {
   const hitBoxes = [];
   const destroyed = [];
   const occupied = [];
   const sunk = false;
+  // const vertical = false;
   for (let i = 0; i < length; i++) {
     hitBoxes.push(i);
     destroyed.push("x");
@@ -44,6 +45,7 @@ export const ship = (length) => {
     hitBoxes,
     destroyed,
     occupied,
+    vertical,
     hit,
     isSunk,
   };
@@ -56,11 +58,25 @@ export const gameboard = () => {
   const ships = [];
 
   // Calls ship() function and places ship on board
-  function placeShip(x, y, length) {
-    const newShip = ship(length);
-    for (let i = 0; i < newShip.length; i++) {
-      newShip.occupied.push(x + (y + i));
-      boardOccupied.push(x + (y + i));
+  /* For verticals do something like:
+  arr = [a,b,c]
+  newShip.occupied.push((arr[i]) + y) */
+  function placeShip(x, y, length, vertical) {
+    const newShip = ship(length, vertical);
+    if (vertical === true) {
+      console.log("REKISTERÖI YHDEN VERTIKAALIN");
+      for (let i = 0; i < newShip.length; i++) {
+        const arr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+        const indexX = arr.indexOf(x);
+        newShip.occupied.push(arr[indexX + i] + y);
+        console.log(arr[indexX + i]);
+        boardOccupied.push(arr[indexX + i] + y);
+      }
+    } else {
+      for (let i = 0; i < newShip.length; i++) {
+        newShip.occupied.push(x + (y + i));
+        boardOccupied.push(x + (y + i));
+      }
     }
     ships.push(newShip);
     return newShip.occupied;
@@ -106,6 +122,7 @@ export const Player = (name, enemy) => {
   const turn = false;
   const enemyBoard = enemy;
 
+  // Enemy AI
   function makeMove() {
     const alphabet = "ABCDEFGHIJ";
     const x = alphabet[Math.floor(Math.random() * alphabet.length)];

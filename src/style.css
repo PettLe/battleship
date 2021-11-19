@@ -56,10 +56,14 @@ h2 {
 }
 
 /* Probably need to separate these later in order to make enemy ships invisible! */
-.shipBox {
-  background-color: black;
+#gameboard1 .shipBox {
+  background-color: rgb(59, 59, 59);
 }
 
 #gameboard2 .shipBox {
   background-color: rgb(89, 132, 182);
+}
+
+#replay {
+  padding: 1vh;
 }

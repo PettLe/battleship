@@ -70,6 +70,10 @@ export default function gameboardGrid(gameboard, Player) {
       });
     }
   }
+  const replay = document.getElementById("replay");
+  replay.addEventListener("click", () => {
+    window.location.reload(true);
+  });
 }
 
 export function drawShips(array) {
