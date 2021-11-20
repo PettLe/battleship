@@ -66,7 +66,7 @@ export const gameboard = () => {
         const indexX = arr.indexOf(x);
         if (boardOccupied.includes(x + (y + i)) || !arr[indexX + i]) {
           alert("Illegal placement");
-          window.location.reload();
+          // window.location.reload();
         } else {
           newShip.occupied.push(arr[indexX + i] + y);
           boardOccupied.push(arr[indexX + i] + y);
@@ -75,8 +75,10 @@ export const gameboard = () => {
     } else {
       for (let i = 0; i < newShip.length; i++) {
         if (boardOccupied.includes(x + (y + i)) || y + i > 10) {
-          alert("Illegal placement");
-          window.location.reload();
+          alert("Illegal placement HORIZONTAL");
+          console.log(x);
+          console.log(y + i);
+          // window.location.reload();
         } else {
           newShip.occupied.push(x + (y + i));
           boardOccupied.push(x + (y + i));

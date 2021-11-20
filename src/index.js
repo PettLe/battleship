@@ -16,15 +16,15 @@ const player1 = Player("Apina", board2);
 const playerCom = Player("Nemesis", board1);
 gameboardGrid(board2, playerCom);
 
-board1.placeShip("A", 1, 5, false);
-board1.placeShip("B", 2, 4, false);
-board1.placeShip("C", 3, 4, false);
-board1.placeShip("D", 4, 3, false);
-board1.placeShip("E", 5, 3, false);
-board1.placeShip("F", 7, 3, false);
-board1.placeShip("G", 3, 2, true);
-board1.placeShip("H", 6, 2, false);
-board1.placeShip("J", 6, 2, false);
+// board1.placeShip("A", 1, 5, false);
+// board1.placeShip("B", 2, 4, false);
+// board1.placeShip("C", 3, 4, false);
+// board1.placeShip("D", 4, 3, false);
+// board1.placeShip("E", 5, 3, false);
+// board1.placeShip("F", 7, 3, false);
+// board1.placeShip("G", 3, 2, true);
+// board1.placeShip("H", 6, 2, false);
+// board1.placeShip("J", 6, 2, false);
 
 board2.placeShip("A", 2, 5, false);
 board2.placeShip("B", 1, 4, false);
@@ -37,5 +37,5 @@ board2.placeShip("H", 8, 2, false);
 board2.placeShip("I", 6, 2, false);
 
 drawShips(board1.boardOccupied);
-console.log(board1.ships);
-console.log(board1.boardOccupied);
+// console.log(board1.ships);
+// console.log(board1.boardOccupied);

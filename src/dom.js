@@ -1,3 +1,4 @@
+/* eslint-disable no-loop-func */
 export default function gameboardGrid(gameboard, Player) {
   const grid1 = document.getElementById("gameboard1");
   const indexLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
@@ -76,14 +77,46 @@ export default function gameboardGrid(gameboard, Player) {
     window.location.reload(true);
   });
 
+  // PLACING THE SHIPS
+  const box1 = document.getElementsByClassName("box1");
+  const turn = document.getElementById("turn");
+  let vertical = false;
+  turn.addEventListener("click", () => {
+    vertical = !vertical;
+    console.log(vertical);
+  });
+  let shipCounter = 0;
+  const shipLength = [6, 5, 4, 3, 2];
+  for (let i = 0; i < box1.length; i++) {
+    box1[i].addEventListener("click", () => {
+      const splitAt = (index) => (x) => [x.slice(0, index), x.slice(index)];
+      const x = splitAt(1)(box1[i].dataset.id)[0];
+      const y = parseInt(splitAt(1)(box1[i].dataset.id)[1], 10);
+      if (shipCounter < shipLength.length) {
+        Player.enemyBoard.placeShip(x, y, shipLength[shipCounter], vertical);
+        shipCounter++;
+        console.log(box1[i].dataset.id);
+        console.log(Player.enemyBoard.ships);
+      } else {
+        alert("Time to play!");
+      }
+    });
+  }
+
   //  Rendering chosen location for ship
-  const shipBtn = document.getElementsByClassName("shipBtn");
+  /* const shipBtn = document.getElementsByClassName("shipBtn");
   const box1 = document.getElementsByClassName("box1");
   for (let g = 0; g < shipBtn.length; g++) {
+    let shipLength = 0;
     shipBtn[g].addEventListener("click", () => {
+      shipBtn[g].disabled = "disabled";
+      shipLength = shipBtn[g].value;
       for (let i = 0; i < box1.length; i++) {
         box1[i].addEventListener("mouseover", () => {
           for (let a = 0; a < shipBtn[g].value; a++) {
+            //            console.log(`i is ${i}`);
+            //            console.log(`a is ${a}`);
+            //            console.log(`ShipBtn value is ${shipBtn[g].value}`);
             if (
               !Player.enemyBoard.boardOccupied.includes(box1[i + a].dataset.id)
             ) {
@@ -100,9 +133,24 @@ export default function gameboardGrid(gameboard, Player) {
             }
           }
         });
+
+        /* Jotenkin tuntuu että iteroi sitä useammin mitä useamman laivan yrittää laittaa,
+        ja sen takia menee entisten päälle ja heittää erroria */
+  /*      box1[i].addEventListener("click", () => {
+          // Little function to separate box.id into x and y
+          const splitAt = (index) => (x) => [x.slice(0, index), x.slice(index)];
+          const x = splitAt(1)(box1[i].dataset.id)[0];
+          const y = parseInt(splitAt(1)(box1[i].dataset.id)[1], 10);
+          // console.log(x);
+          // console.log(box1[i].dataset.id);
+          console.log(y);
+          Player.enemyBoard.placeShip(x, y, shipLength, false);
+          console.log(Player.enemyBoard);
+          // console.log(Player.enemyBoard.ships.length);
+        });
       }
     });
-  }
+  } */
 }
 
 export function drawShips(array) {
