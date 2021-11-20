@@ -66,6 +66,7 @@ export const gameboard = () => {
         const indexX = arr.indexOf(x);
         if (boardOccupied.includes(x + (y + i)) || !arr[indexX + i]) {
           alert("Illegal placement");
+          //  break; Doesn't work. For reminder.
           // window.location.reload();
         } else {
           newShip.occupied.push(arr[indexX + i] + y);
@@ -75,9 +76,8 @@ export const gameboard = () => {
     } else {
       for (let i = 0; i < newShip.length; i++) {
         if (boardOccupied.includes(x + (y + i)) || y + i > 10) {
-          alert("Illegal placement HORIZONTAL");
-          console.log(x);
-          console.log(y + i);
+          alert("Illegal placement");
+          //  break;
           // window.location.reload();
         } else {
           newShip.occupied.push(x + (y + i));
