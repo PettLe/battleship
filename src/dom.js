@@ -101,7 +101,7 @@ export default function gameboardGrid(gameboard, Player) {
     } else {
       turn.textContent = "Vertical";
     }
-    console.log(vertical);
+    // console.log(vertical);
   });
   let shipCounter = 0;
   const shipLength = [6, 5, 4, 3, 2];
@@ -114,21 +114,25 @@ export default function gameboardGrid(gameboard, Player) {
         Player.enemyBoard.placeShip(x, y, shipLength[shipCounter], vertical);
         drawShips();
         // shipCounter++;
-        console.log(box1[i].dataset.id);
+        // console.log(box1[i].dataset.id);
         console.log(Player.enemyBoard.ships);
+        console.log(Player.enemyBoard.boardOccupied);
       } else {
         alert("Time to play!");
       }
 
       // PLACING ENEMY SHIPS
       const alphabet = "ABCDEFGHIJ";
-      const shipOrient = Math.random() < 0.5;
-      const shipx = alphabet[Math.floor(Math.random() * alphabet.length)];
-      const shipy = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+      let shipOrient = Math.random() < 0.5;
+      let shipx = alphabet[Math.floor(Math.random() * alphabet.length)];
+      let shipy = Math.floor(Math.random() * (10 - 1 + 1) + 1);
       const result = x + y;
       if (shipCounter < shipLength.length) {
         gameboard.placeShip(shipx, shipy, shipLength[shipCounter], shipOrient);
         if ("illegal") {
+          shipOrient = Math.random() < 0.5;
+          shipx = alphabet[Math.floor(Math.random() * alphabet.length)];
+          shipy = Math.floor(Math.random() * (10 - 1 + 1) + 1);
           gameboard.placeShip(
             shipx,
             shipy,

@@ -64,20 +64,25 @@ export const gameboard = () => {
       for (let i = 0; i < newShip.length; i++) {
         const arr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
         const indexX = arr.indexOf(x);
-        if (boardOccupied.includes(x + (y + i)) || !arr[indexX + i]) {
-          alert("Illegal placement");
+        console.log(`Vertical is ${arr[indexX + i] + y}`);
+        // console.log(`Arr letter is ${arr[indexX + i]}`);
+        // if (boardOccupied.includes(x + (y + i)) || !arr[indexX + i]) {
+        if (boardOccupied.includes(arr[indexX + i] + y) || !arr[indexX + i]) {
+          alert("Illegal vertical placement");
+          console.log(boardOccupied);
           return "illegal";
-          // window.location.reload();
         }
         newShip.occupied.push(arr[indexX + i] + y);
         boardOccupied.push(arr[indexX + i] + y);
       }
     } else {
       for (let i = 0; i < newShip.length; i++) {
+        console.log(`Horizontal x + (y + i) is ${x + (y + i)}`);
+        // console.log(`y is ${y}`);
         if (boardOccupied.includes(x + (y + i)) || y + i > 10) {
-          alert("Illegal placement");
+          alert("Illegal horizontal placement");
+          console.log(boardOccupied);
           return "illegal";
-          // window.location.reload();
         }
         newShip.occupied.push(x + (y + i));
         boardOccupied.push(x + (y + i));
