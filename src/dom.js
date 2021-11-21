@@ -36,8 +36,8 @@ export default function gameboardGrid(gameboard, Player) {
           }
         }
         gameboard.receiveAttack(indexLetters[i], j, shipIndex);
-        if (!"missed") {
-          // if (gameboard.boardOccupied.includes(box.dataset.id)) {
+        // if (!"missed") {
+        if (gameboard.boardOccupied.includes(box.dataset.id)) {
           box.style.backgroundColor = "red";
         } else {
           box.style.backgroundColor = "blue";
@@ -101,7 +101,6 @@ export default function gameboardGrid(gameboard, Player) {
     } else {
       turn.textContent = "Vertical";
     }
-    // console.log(vertical);
   });
   let shipCounter = 0;
   const shipLength = [6, 5, 4, 3, 2];
@@ -113,8 +112,6 @@ export default function gameboardGrid(gameboard, Player) {
       if (shipCounter < shipLength.length) {
         Player.enemyBoard.placeShip(x, y, shipLength[shipCounter], vertical);
         drawShips();
-        // shipCounter++;
-        // console.log(box1[i].dataset.id);
         console.log(Player.enemyBoard.ships);
         console.log(Player.enemyBoard.boardOccupied);
       } else {
@@ -126,10 +123,52 @@ export default function gameboardGrid(gameboard, Player) {
       let shipOrient = Math.random() < 0.5;
       let shipx = alphabet[Math.floor(Math.random() * alphabet.length)];
       let shipy = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-      const result = x + y;
+      // const result = x + y;
+
       if (shipCounter < shipLength.length) {
+        if (shipOrient === true) {
+          for (let i = 0; i < shipLength.length; i++) {
+            const arr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+            const indexX = arr.indexOf(x);
+
+            while (true) {
+              shipOrient = Math.random() < 0.5;
+              shipx = alphabet[Math.floor(Math.random() * alphabet.length)];
+              shipy = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+              console.log("Loopissa ollaan");
+              if (
+                !gameboard.boardOccupied.includes(arr[indexX + i] + y) ||
+                arr[indexX + i]
+              ) {
+                gameboard.placeShip(
+                  shipx,
+                  shipy,
+                  shipLength[shipCounter],
+                  shipOrient
+                );
+                console.log("VAPAUS!");
+                break;
+              }
+            }
+          }
+        } else {
+          for (let i = 0; i < shipLength.length; i++) {
+            if (gameboard.boardOccupied.includes(x + (y + i)) || y + i > 10) {
+              alert("Illegal horizontal placement");
+              return "illegal";
+            }
+            gameboard.placeShip(
+              shipx,
+              shipy,
+              shipLength[shipCounter],
+              shipOrient
+            );
+          }
+        }
         gameboard.placeShip(shipx, shipy, shipLength[shipCounter], shipOrient);
-        if ("illegal") {
+
+        /* if ("illegal") {
+          console.log("Placement was illegal: new one:");
           shipOrient = Math.random() < 0.5;
           shipx = alphabet[Math.floor(Math.random() * alphabet.length)];
           shipy = Math.floor(Math.random() * (10 - 1 + 1) + 1);
@@ -139,7 +178,7 @@ export default function gameboardGrid(gameboard, Player) {
             shipLength[shipCounter],
             shipOrient
           );
-        }
+        } */
         shipCounter++;
         console.log(gameboard.ships);
       }

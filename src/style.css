@@ -94,3 +94,11 @@ h2 {
   justify-content: space-between;
   gap: 2vh;
 }
+
+p {
+  max-width: 15vw;
+  font-size: 1.4rem;
+  padding: 2vh;
+  background-color: rgba(218, 218, 218, 0.4);
+  border-radius: 15px;
+}
