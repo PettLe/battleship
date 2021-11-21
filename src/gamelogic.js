@@ -66,23 +66,21 @@ export const gameboard = () => {
         const indexX = arr.indexOf(x);
         if (boardOccupied.includes(x + (y + i)) || !arr[indexX + i]) {
           alert("Illegal placement");
-          //  break; Doesn't work. For reminder.
+          return "illegal";
           // window.location.reload();
-        } else {
-          newShip.occupied.push(arr[indexX + i] + y);
-          boardOccupied.push(arr[indexX + i] + y);
         }
+        newShip.occupied.push(arr[indexX + i] + y);
+        boardOccupied.push(arr[indexX + i] + y);
       }
     } else {
       for (let i = 0; i < newShip.length; i++) {
         if (boardOccupied.includes(x + (y + i)) || y + i > 10) {
           alert("Illegal placement");
-          //  break;
+          return "illegal";
           // window.location.reload();
-        } else {
-          newShip.occupied.push(x + (y + i));
-          boardOccupied.push(x + (y + i));
         }
+        newShip.occupied.push(x + (y + i));
+        boardOccupied.push(x + (y + i));
       }
     }
     ships.push(newShip);
@@ -98,7 +96,7 @@ export const gameboard = () => {
     ships[shipIndex].hit(x, y);
     if (ships[shipIndex].isSunk() === true) {
       console.log(`${ships.filter(({ sunk }) => sunk === true).length}`);
-      return console.log("SHIP HAS BEEN SUNK!");
+      return "SHIP HAS BEEN SUNK!";
     }
 
     return console.log("It's a hit!");

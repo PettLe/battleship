@@ -36,7 +36,8 @@ export default function gameboardGrid(gameboard, Player) {
           }
         }
         gameboard.receiveAttack(indexLetters[i], j, shipIndex);
-        if (gameboard.boardOccupied.includes(box.dataset.id)) {
+        if (!"missed") {
+          // if (gameboard.boardOccupied.includes(box.dataset.id)) {
           box.style.backgroundColor = "red";
         } else {
           box.style.backgroundColor = "blue";
@@ -49,6 +50,7 @@ export default function gameboardGrid(gameboard, Player) {
           const b = move.y;
           let shipIndex2 = "";
           for (let h = 0; h < gameboard.ships.length; h++) {
+            console.log(Player.enemyBoard.ships[h].occupied);
             if (Player.enemyBoard.ships[h].occupied.includes(move.result)) {
               shipIndex2 = h;
             }
@@ -77,7 +79,7 @@ export default function gameboardGrid(gameboard, Player) {
     window.location.reload(true);
   });
 
-  // RENDER FUNCYTION FOR SHIPS
+  // RENDER FUNCTION FOR SHIPS
   function drawShips() {
     const boxes = document.getElementsByClassName("box1");
     for (let i = 0; i < boxes.length; i++) {
@@ -87,13 +89,18 @@ export default function gameboardGrid(gameboard, Player) {
     }
   }
 
-  // PLACING THE SHIPS
-  // RENDER THE BUTTON TO SHOW VERTICAL OR HORIZONTAL
+  // PLACING THE SHIPS AND TURN BUTTON
   const box1 = document.getElementsByClassName("box1");
   const turn = document.getElementById("turn");
   let vertical = false;
+  turn.textContent = "Horizontal";
   turn.addEventListener("click", () => {
     vertical = !vertical;
+    if (vertical === false) {
+      turn.textContent = "Horizontal";
+    } else {
+      turn.textContent = "Vertical";
+    }
     console.log(vertical);
   });
   let shipCounter = 0;
@@ -106,11 +113,31 @@ export default function gameboardGrid(gameboard, Player) {
       if (shipCounter < shipLength.length) {
         Player.enemyBoard.placeShip(x, y, shipLength[shipCounter], vertical);
         drawShips();
-        shipCounter++;
+        // shipCounter++;
         console.log(box1[i].dataset.id);
         console.log(Player.enemyBoard.ships);
       } else {
         alert("Time to play!");
+      }
+
+      // PLACING ENEMY SHIPS
+      const alphabet = "ABCDEFGHIJ";
+      const shipOrient = Math.random() < 0.5;
+      const shipx = alphabet[Math.floor(Math.random() * alphabet.length)];
+      const shipy = Math.floor(Math.random() * (10 - 1 + 1) + 1);
+      const result = x + y;
+      if (shipCounter < shipLength.length) {
+        gameboard.placeShip(shipx, shipy, shipLength[shipCounter], shipOrient);
+        if ("illegal") {
+          gameboard.placeShip(
+            shipx,
+            shipy,
+            shipLength[shipCounter],
+            shipOrient
+          );
+        }
+        shipCounter++;
+        console.log(gameboard.ships);
       }
     });
   }
