@@ -64,10 +64,11 @@ export const gameboard = () => {
       for (let i = 0; i < newShip.length; i++) {
         const arr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
         const indexX = arr.indexOf(x);
-        if (boardOccupied.includes(arr[indexX + i] + y) || !arr[indexX + i]) {
-          alert("Illegal vertical placement");
-          console.log("ILLEGAL VERTICAL");
-          return "illegal";
+        for (let j = 0; j < newShip.length; j++) {
+          if (boardOccupied.includes(arr[indexX + i] + y) || !arr[indexX + i]) {
+            alert("Illegal vertical placement");
+            console.log("ILLEGAL VERTICAL");
+          }
         }
         newShip.occupied.push(arr[indexX + i] + y);
         boardOccupied.push(arr[indexX + i] + y);

@@ -17,6 +17,7 @@ export default function gameboardGrid(gameboard, Player) {
   }
 
   const grid2 = document.getElementById("gameboard2");
+  grid2.style.display = "none";
   for (let i = 0; i < 10; i++) {
     const row = document.createElement("div");
     row.classList.add("row");
@@ -36,7 +37,6 @@ export default function gameboardGrid(gameboard, Player) {
           }
         }
         gameboard.receiveAttack(indexLetters[i], j, shipIndex);
-        // if (!"missed") {
         if (gameboard.boardOccupied.includes(box.dataset.id)) {
           box.style.backgroundColor = "red";
         } else {
@@ -112,10 +112,10 @@ export default function gameboardGrid(gameboard, Player) {
       if (shipCounter < shipLength.length) {
         Player.enemyBoard.placeShip(x, y, shipLength[shipCounter], vertical);
         drawShips();
-        // console.log(Player.enemyBoard.ships);
-        // console.log(Player.enemyBoard.boardOccupied);
-      } else {
-        alert("Time to play!");
+        if (shipCounter === 4) {
+          grid2.style.display = "block";
+          alert("TIME TO PLAY!");
+        }
       }
 
       // PLACING ENEMY SHIPS
@@ -131,8 +131,6 @@ export default function gameboardGrid(gameboard, Player) {
       }
       const alphabet = "ABCDEFGHIJ";
       const shipOrient = Math.random() < 0.5;
-      // const shipx = alphabet[Math.floor(Math.random() * alphabet.length)];
-      // const shipy = Math.floor(Math.random() * (10 - 1 + 1) + 1);
 
       if (shipCounter < shipLength.length) {
         if (shipOrient === true) {
@@ -144,7 +142,7 @@ export default function gameboardGrid(gameboard, Player) {
               const arr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
               const indexX = arr.indexOf(shipx);
               shipTemp.push(arr[indexX + i] + shipy);
-              console.log(shipTemp);
+              //   console.log(shipTemp);
             }
 
             if (
@@ -152,7 +150,7 @@ export default function gameboardGrid(gameboard, Player) {
               findCommon(shipTemp, gameboard.boardOccupied)
             ) {
               shipTemp.splice(0, shipTemp.length);
-              console.log("NYT OLI HUONOJA");
+              // console.log("NYT OLI HUONOJA");
             } else {
               gameboard.placeShip(
                 shipx,
@@ -161,8 +159,8 @@ export default function gameboardGrid(gameboard, Player) {
                 shipOrient
               );
               shipCounter++;
-              console.log(gameboard.ships);
-              console.log("RIKOTAAN");
+              // console.log(gameboard.ships);
+              //  console.log("RIKOTAAN");
               break;
             }
           }
@@ -175,16 +173,15 @@ export default function gameboardGrid(gameboard, Player) {
             const indexY = arr.indexOf(shipy);
             for (let i = 0; i < shipLength[shipCounter]; i++) {
               shipTemp2.push(shipx + arr[indexY + i]);
-              console.log(shipTemp2);
+              // console.log(shipTemp2);
             }
             if (
               shipTemp2.includes(`${shipx}undefined`) ||
-              findCommon(shipTemp2, gameboard.boardOccupied) /* ||
-              indexY + i > 10 */
+              findCommon(shipTemp2, gameboard.boardOccupied)
             ) {
               shipTemp2.splice(0, shipTemp2.length);
-              console.log(`Näyttääkö oikealta: ${shipx}undefined`);
-              console.log("NYT OLI HUONOJA KAKKONEN");
+              //  console.log(`Näyttääkö oikealta: ${shipx}undefined`);
+              // console.log("NYT OLI HUONOJA KAKKONEN");
             } else {
               gameboard.placeShip(
                 shipx,
@@ -193,80 +190,15 @@ export default function gameboardGrid(gameboard, Player) {
                 shipOrient
               );
               shipCounter++;
-              console.log(gameboard.ships);
-              console.log("RIKOTAAN 2");
+              //     console.log(gameboard.ships);
+              //   console.log("RIKOTAAN 2");
               break;
             }
           }
-          console.log(shipTemp2);
+          // console.log(shipTemp2);
         }
         console.log(gameboard.boardOccupied);
       }
-      /*      const alphabet = "ABCDEFGHIJ";
-      let shipOrient = Math.random() < 0.5;
-      let shipx = alphabet[Math.floor(Math.random() * alphabet.length)];
-      let shipy = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-      const result = x + y;
-      let approvedPos = 1;
-
-      if (shipCounter < shipLength.length) {
-        if (shipOrient === true) {
-          for (let i = 0; i < shipLength.length; i++) {
-            const arr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-            const indexX = arr.indexOf(x);
-            if (
-              gameboard.boardOccupied.includes(arr[indexX + i] + y) ||
-              !arr[indexX + i]
-            ) {
-              return "illegal";
-            }
-            approvedPos++;
-            console.log(approvedPos);
-            if (approvedPos === shipLength.length) {
-              gameboard.placeShip(
-                shipx,
-                shipy,
-                shipLength[shipCounter],
-                shipOrient
-              );
-              approvedPos = 1;
-            }
-          }
-        } else {
-          for (let i = 0; i < shipLength.length; i++) {
-            if (gameboard.boardOccupied.includes(x + (y + i)) || y + i > 10) {
-              alert("Illegal horizontal placement");
-              return "illegal";
-            }
-            approvedPos++;
-            console.log(approvedPos);
-            if (approvedPos === shipLength.length) {
-              gameboard.placeShip(
-                shipx,
-                shipy,
-                shipLength[shipCounter],
-                shipOrient
-              );
-            }
-          }
-        }
-        gameboard.placeShip(shipx, shipy, shipLength[shipCounter], shipOrient);
-
-        if ("illegal") {
-          console.log("Placement was illegal: new one:");
-          shipOrient = Math.random() < 0.5;
-          shipx = alphabet[Math.floor(Math.random() * alphabet.length)];
-          shipy = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-          gameboard.placeShip(
-            shipx,
-            shipy,
-            shipLength[shipCounter],
-            shipOrient
-          );
-        }
-        shipCounter++;
-        console.log(gameboard.ships);
-      */
     });
   }
 }
@@ -279,69 +211,3 @@ export function drawShips(array) {
     }
   }
 }
-
-/* WHAT I TRIED FOR ENEMY SHIP PLACEMENT:
-      // PLACING ENEMY SHIPS
-      const alphabet = "ABCDEFGHIJ";
-      let shipOrient = Math.random() < 0.5;
-      let shipx = alphabet[Math.floor(Math.random() * alphabet.length)];
-      let shipy = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-      // const result = x + y;
-
-      if (shipCounter < shipLength.length) {
-        if (shipOrient === true) {
-          for (let i = 0; i < shipLength.length; i++) {
-            const arr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-            const indexX = arr.indexOf(x);
-
-            while (true) {
-              shipOrient = Math.random() < 0.5;
-              shipx = alphabet[Math.floor(Math.random() * alphabet.length)];
-              shipy = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-              console.log("Loopissa ollaan");
-              if (
-                !gameboard.boardOccupied.includes(arr[indexX + i] + y) ||
-                arr[indexX + i]
-              ) {
-                gameboard.placeShip(
-                  shipx,
-                  shipy,
-                  shipLength[shipCounter],
-                  shipOrient
-                );
-                console.log("VAPAUS!");
-                break;
-              }
-            }
-          }
-        } else {
-          for (let i = 0; i < shipLength.length; i++) {
-            if (gameboard.boardOccupied.includes(x + (y + i)) || y + i > 10) {
-              alert("Illegal horizontal placement");
-              return "illegal";
-            }
-            gameboard.placeShip(
-              shipx,
-              shipy,
-              shipLength[shipCounter],
-              shipOrient
-            );
-          }
-        }
-        gameboard.placeShip(shipx, shipy, shipLength[shipCounter], shipOrient);
-
-         if ("illegal") {
-          console.log("Placement was illegal: new one:");
-          shipOrient = Math.random() < 0.5;
-          shipx = alphabet[Math.floor(Math.random() * alphabet.length)];
-          shipy = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-          gameboard.placeShip(
-            shipx,
-            shipy,
-            shipLength[shipCounter],
-            shipOrient
-          );
-        }
-        shipCounter++;
-        console.log(gameboard.ships); */
-// }
