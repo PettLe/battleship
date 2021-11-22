@@ -17,7 +17,7 @@ export default function gameboardGrid(gameboard, Player) {
   }
 
   const grid2 = document.getElementById("gameboard2");
-  grid2.style.display = "none";
+  grid2.style.visibility = "hidden";
   for (let i = 0; i < 10; i++) {
     const row = document.createElement("div");
     row.classList.add("row");
@@ -50,12 +50,10 @@ export default function gameboardGrid(gameboard, Player) {
           const b = move.y;
           let shipIndex2 = "";
           for (let h = 0; h < gameboard.ships.length; h++) {
-            // console.log(Player.enemyBoard.ships[h].occupied);
             if (Player.enemyBoard.ships[h].occupied.includes(move.result)) {
               shipIndex2 = h;
             }
           }
-          console.log(move.result);
           Player.enemyBoard.receiveAttack(a, b, shipIndex2);
           const box1 = document.getElementsByClassName("box1");
           for (let i = 0; i < box1.length; i++) {
@@ -103,18 +101,27 @@ export default function gameboardGrid(gameboard, Player) {
     }
   });
   let shipCounter = 0;
+  let shipCounter2 = 0;
   const shipLength = [6, 5, 4, 3, 2];
   for (let i = 0; i < box1.length; i++) {
     box1[i].addEventListener("click", () => {
       const splitAt = (index) => (x) => [x.slice(0, index), x.slice(index)];
       const x = splitAt(1)(box1[i].dataset.id)[0];
       const y = parseInt(splitAt(1)(box1[i].dataset.id)[1], 10);
+
       if (shipCounter < shipLength.length) {
-        Player.enemyBoard.placeShip(x, y, shipLength[shipCounter], vertical);
-        drawShips();
-        if (shipCounter === 4) {
-          grid2.style.display = "block";
-          alert("TIME TO PLAY!");
+        if (
+          Player.enemyBoard.placeFree(x, y, shipLength[shipCounter], vertical)
+        ) {
+          Player.enemyBoard.placeShip(x, y, shipLength[shipCounter], vertical);
+          drawShips();
+          shipCounter++;
+          if (shipCounter === 5) {
+            grid2.style.visibility = "visible";
+            alert("TIME TO PLAY!");
+          }
+        } else {
+          alert("Invalid ship placement, try again");
         }
       }
 
@@ -131,18 +138,16 @@ export default function gameboardGrid(gameboard, Player) {
       }
       const alphabet = "ABCDEFGHIJ";
       const shipOrient = Math.random() < 0.5;
-
-      if (shipCounter < shipLength.length) {
+      if (shipCounter2 < shipLength.length) {
         if (shipOrient === true) {
           const shipTemp = [];
           while (true) {
             const shipx = alphabet[Math.floor(Math.random() * alphabet.length)];
             const shipy = Math.floor(Math.random() * (10 - 1 + 1) + 1);
-            for (let i = 0; i < shipLength[shipCounter]; i++) {
+            for (let i = 0; i < shipLength[shipCounter2]; i++) {
               const arr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
               const indexX = arr.indexOf(shipx);
               shipTemp.push(arr[indexX + i] + shipy);
-              //   console.log(shipTemp);
             }
 
             if (
@@ -150,17 +155,14 @@ export default function gameboardGrid(gameboard, Player) {
               findCommon(shipTemp, gameboard.boardOccupied)
             ) {
               shipTemp.splice(0, shipTemp.length);
-              // console.log("NYT OLI HUONOJA");
             } else {
               gameboard.placeShip(
                 shipx,
                 shipy,
-                shipLength[shipCounter],
+                shipLength[shipCounter2],
                 shipOrient
               );
-              shipCounter++;
-              // console.log(gameboard.ships);
-              //  console.log("RIKOTAAN");
+              shipCounter2 += 1;
               break;
             }
           }
@@ -171,33 +173,26 @@ export default function gameboardGrid(gameboard, Player) {
             const shipy = Math.floor(Math.random() * (10 - 1 + 1) + 1);
             const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
             const indexY = arr.indexOf(shipy);
-            for (let i = 0; i < shipLength[shipCounter]; i++) {
+            for (let i = 0; i < shipLength[shipCounter2]; i++) {
               shipTemp2.push(shipx + arr[indexY + i]);
-              // console.log(shipTemp2);
             }
             if (
               shipTemp2.includes(`${shipx}undefined`) ||
               findCommon(shipTemp2, gameboard.boardOccupied)
             ) {
               shipTemp2.splice(0, shipTemp2.length);
-              //  console.log(`Näyttääkö oikealta: ${shipx}undefined`);
-              // console.log("NYT OLI HUONOJA KAKKONEN");
             } else {
               gameboard.placeShip(
                 shipx,
                 shipy,
-                shipLength[shipCounter],
+                shipLength[shipCounter2],
                 shipOrient
               );
-              shipCounter++;
-              //     console.log(gameboard.ships);
-              //   console.log("RIKOTAAN 2");
+              shipCounter2 += 1;
               break;
             }
           }
-          // console.log(shipTemp2);
         }
-        console.log(gameboard.boardOccupied);
       }
     });
   }

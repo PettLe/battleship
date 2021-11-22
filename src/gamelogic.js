@@ -1,17 +1,10 @@
 /* eslint-disable no-plusplus */
 
-/* Ships needed:
-1 x Carrier, size 5
-2 x Battleship, size 4
-3 x Destroyer, size 3
-3 x Patrol Boat, size 2  */
-
 export const ship = (length, vertical) => {
   const hitBoxes = [];
   const destroyed = [];
   const occupied = [];
   const sunk = false;
-  // const vertical = false;
   for (let i = 0; i < length; i++) {
     hitBoxes.push(i);
     destroyed.push("x");
@@ -57,6 +50,57 @@ export const gameboard = () => {
   const boardOccupied = [];
   const ships = [];
 
+  // Function to check ship placement
+  function placeFree(x, y, length, shipOrient) {
+    function findCommon(array1, array2) {
+      for (let i = 0; i < array1.length; i++) {
+        for (let j = 0; j < array2.length; j++) {
+          if (array1[i] === array2[j]) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    for (let i = 0; i < length; i++) {
+      if (shipOrient === true) {
+        const shipTemp = [];
+
+        for (let j = 0; j < length; j++) {
+          const arr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+          const indexX = arr.indexOf(x);
+          shipTemp.push(arr[indexX + j] + y);
+        }
+
+        if (shipTemp.includes(NaN) || findCommon(shipTemp, boardOccupied)) {
+          shipTemp.splice(0, shipTemp.length);
+          return false;
+        }
+        shipTemp.splice(0, shipTemp.length);
+        return true;
+      }
+      if (shipOrient === false) {
+        const shipTemp2 = [];
+
+        const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        const indexY = arr.indexOf(y);
+        for (let g = 0; g < length; g++) {
+          shipTemp2.push(x + arr[indexY + g]);
+        }
+        if (
+          shipTemp2.includes(`${x}undefined`) ||
+          findCommon(shipTemp2, boardOccupied)
+        ) {
+          shipTemp2.splice(0, shipTemp2.length);
+          return false;
+        }
+        shipTemp2.splice(0, shipTemp2.length);
+        return true;
+      }
+    }
+  }
+
   // Calls ship() function and places ship on board
   function placeShip(x, y, length, vertical) {
     const newShip = ship(length, vertical);
@@ -64,11 +108,8 @@ export const gameboard = () => {
       for (let i = 0; i < newShip.length; i++) {
         const arr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
         const indexX = arr.indexOf(x);
-        for (let j = 0; j < newShip.length; j++) {
-          if (boardOccupied.includes(arr[indexX + i] + y) || !arr[indexX + i]) {
-            alert("Illegal vertical placement");
-            console.log("ILLEGAL VERTICAL");
-          }
+        if (boardOccupied.includes(arr[indexX + i] + y) || !arr[indexX + i]) {
+          return false;
         }
         newShip.occupied.push(arr[indexX + i] + y);
         boardOccupied.push(arr[indexX + i] + y);
@@ -76,9 +117,7 @@ export const gameboard = () => {
     } else {
       for (let i = 0; i < newShip.length; i++) {
         if (boardOccupied.includes(x + (y + i)) || y + i > 10) {
-          alert("Illegal horizontal placement");
-          console.log(boardOccupied);
-          return "illegal";
+          return false;
         }
         newShip.occupied.push(x + (y + i));
         boardOccupied.push(x + (y + i));
@@ -96,11 +135,8 @@ export const gameboard = () => {
     }
     ships[shipIndex].hit(x, y);
     if (ships[shipIndex].isSunk() === true) {
-      console.log(`${ships.filter(({ sunk }) => sunk === true).length}`);
       return "SHIP HAS BEEN SUNK!";
     }
-
-    return console.log("It's a hit!");
   };
 
   // Function to inform if every ship has been sunk
@@ -117,6 +153,7 @@ export const gameboard = () => {
     shots,
     ships,
     boardOccupied,
+    placeFree,
     placeShip,
     receiveAttack,
     loose,

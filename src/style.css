@@ -21,8 +21,6 @@ body {
 
 #gameboard1,
 #gameboard2 {
-  /*  display: flex;
-  flex-direction: column;*/
   width: 33vw;
   height: 33vw;
 }
@@ -58,13 +56,8 @@ h2 {
   opacity: 0.5;
 }
 
-/* Probably need to separate these later in order to make enemy ships invisible! */
 #gameboard1 .shipBox {
-  background-color: rgb(59, 59, 59);
-}
-
-#gameboard2 .shipBox {
-  background-color: rgb(59, 59, 59);
+  background-color: rgb(12, 12, 12);
 }
 
 #replay {
@@ -95,10 +88,14 @@ h2 {
   gap: 2vh;
 }
 
-p {
+.description {
   max-width: 15vw;
   font-size: 1.4rem;
   padding: 2vh;
   background-color: rgba(218, 218, 218, 0.4);
   border-radius: 15px;
+}
+
+span {
+  font-size: 1.2rem;
 }
